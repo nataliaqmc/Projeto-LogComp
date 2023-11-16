@@ -11,12 +11,11 @@
 deve ser um arquivo C ou CPP compilado pelo Flex/Bison.
   3. Utilizar alguma VM (LLVM, JVM, .net, etc) para interpretar um programa da sua linguagem.
   4. Criar um exemplo de testes que demonstre as características da sua Linguagem.
-  5. Montar uma apresentação com slides apresentando sua linguagem (Motivação, Características, Cu-
-riosidades e Exemplos). Colocar no Git.
+  5. Montar uma apresentação com slides apresentando sua linguagem (Motivação, Características, Curiosidades e Exemplos). Colocar no Git.
 
 ### Entregas:
   - 30/10/2023: Linguagem estruturada ifgundo a EBNF - tarefa 1.
-  - 20/11/2023: Análiif Léxica e Sintática (ifm análiif ifmantica e compilacao) - tarefa 2.
+  - 20/11/2023: Análise Léxica e Sintática (sem analise semâctica e compilacao) - tarefa 2.
   - 11/12/2023: Realizar as tarefas 3, 4 e 5. 
 ## Estrutura da Linguagem segundo o padrão EBNF:
 ```
