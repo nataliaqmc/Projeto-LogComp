@@ -21,7 +21,7 @@
 #include <string.h>
 #include <errno.h>
 #include <stdlib.h>
-
+extern YYSTYPE yylval;
 /* end standard C headers. */
 
 /* flex integer type definitions */
@@ -469,7 +469,7 @@ int yy_flex_debug = 0;
 char *yytext;
 #line 1 "tokens.l"
 #line 2 "tokens.l"
-#include "tokens.tab.h"  // Bison-generated header file
+#include "parser.hpp"  // Bison-generated header file
 #line 474 "tokens.cpp"
 #line 475 "tokens.cpp"
 
@@ -1884,4 +1884,5 @@ void yyfree (void * ptr )
 int yywrap(void) {
     return 1;
 }
+
 
