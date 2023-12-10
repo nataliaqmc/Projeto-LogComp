@@ -17,26 +17,26 @@
 
 using namespace llvm;
 
-class NBlock;
+class Block;
 
-class CodeGenBlock {
+class CodeGeBlock {
 public:
     BasicBlock *block;
-    std::map<std::string, Value*> locals;
+    std::list<std::string, Value*> locals;
 };
 
 class CodeGenContext {
-    std::stack<CodeGenBlock *> blocks;
+    std::stack<CodeGeBlock *> blocks;
     Function *mainFunction;
 
 public:
     Module *module;
     CodeGenContext() { module = new Module("main", getGlobalContext()); }
     
-    void generateCode(NBlock& root);
+    void generateCode(Block& root);
     GenericValue runCode();
-    std::map<std::string, Value*>& locals() { return blocks.top()->locals; }
+    std::list<std::string, Value*>& locals() { return blocks.top()->locals; }
     BasicBlock *currentBlock() { return blocks.top()->block; }
-    void pushBlock(BasicBlock *block) { blocks.push(new CodeGenBlock()); blocks.top()->block = block; }
-    void popBlock() { CodeGenBlock *top = blocks.top(); blocks.pop(); delete top; }
+    void pushBlock(BasicBlock *block) { blocks.push(new CodeGeBlock()); blocks.top()->block = block; }
+    void popBlock() { CodeGeBlock *top = blocks.top(); blocks.pop(); delete top; }
 };
