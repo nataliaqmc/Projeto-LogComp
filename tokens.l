@@ -1,5 +1,8 @@
 %{
-#include "tokens.tab.h"  // Bison-generated header file
+#include <string>
+#include "node.h"
+#include "parser.hpp"
+#define SAVE_TOKEN yylval.string = new std::string(yytext, yyleng)
 %}
 
 %%
@@ -10,12 +13,12 @@
 "while"         { return WHILE; }
 "ifnot"         { return IFNOT; }
 "if"            { return IF; }
-"{"             { return '{'; }
-"}"             { return '}'; }
-";"             { return ';'; }
-"("             { return '('; }
-")"             { return ')'; }
-"="             { return '='; }
+"{"             { return CHAVEOPEN; }
+"}"             { return CHAVECLOSE; }
+";"             { return PONTOVIRGULA; }
+"("             { return PARENTESESOPEN; }
+")"             { return PARENTESESCLOSE; }
+"="             { return ASSIGN; }
 ">"             { return GREATER; }
 "<"             { return LESSER; }
 ">="            { return GREATER_EQUAL; }
@@ -26,13 +29,9 @@
 "-"             { return MINUS; }
 "*"             { return MULTIPLY; }
 "/"             { return DIVIDE; }
-
-[a-zA-Z_][a-zA-Z0-9_]* { yylval.str = strdup(yytext); return IDENTIFIER; }
-
-[0-9]+          { yylval.num = atoi(yytext); return NUMBER; }
-
-.               { fprintf(stderr, "Unrecognized character: %s\n", yytext); }
-
+.                       printf("Unknown token!n"); yyterminate();
+[a-zA-Z_][a-zA-Z0-9_]*  SAVE_TOKEN; return IDENTIFIER;
+[0-9]+                  SAVE_TOKEN; return NUMBER;
 %%
 
 int yywrap(void) {

@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "*.cu": "cpp",
+        "iostream": "cpp",
+        "ostream": "cpp",
+        "stack": "cpp"
+    }
+}

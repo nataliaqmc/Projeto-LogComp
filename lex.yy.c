@@ -1,6 +1,6 @@
-#line 2 "tokens.cpp"
+#line 2 "lex.yy.c"
 
-#line 4 "tokens.cpp"
+#line 4 "lex.yy.c"
 
 #define  YY_INT_ALIGNED short int
 
@@ -473,8 +473,8 @@ char *yytext;
 #include "node.h"
 #include "parser.hpp"
 #define SAVE_TOKEN yylval.string = new std::string(yytext, yyleng)
-#line 477 "tokens.cpp"
-#line 478 "tokens.cpp"
+#line 477 "lex.yy.c"
+#line 478 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -694,7 +694,7 @@ YY_DECL
 #line 8 "tokens.l"
 
 
-#line 698 "tokens.cpp"
+#line 698 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -876,7 +876,7 @@ YY_RULE_SETUP
 #line 35 "tokens.l"
 ECHO;
 	YY_BREAK
-#line 880 "tokens.cpp"
+#line 880 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 

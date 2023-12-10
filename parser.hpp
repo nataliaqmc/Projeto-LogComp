@@ -68,17 +68,41 @@ extern int yydebug;
     LESSER_EQUAL = 269,            /* LESSER_EQUAL  */
     EQUAL = 270,                   /* EQUAL  */
     NOT_EQUAL = 271,               /* NOT_EQUAL  */
-    IF = 272,                      /* IF  */
-    IFNOT = 273,                   /* IFNOT  */
-    WHILE = 274,                   /* WHILE  */
-    PRINT = 275                    /* PRINT  */
+    ASSIGN = 272,                  /* ASSIGN  */
+    CHAVECLOSE = 273,              /* CHAVECLOSE  */
+    CHAVEOPEN = 274,               /* CHAVEOPEN  */
+    PARENTESESCLOSE = 275,         /* PARENTESESCLOSE  */
+    PARENTESESOPEN = 276,          /* PARENTESESOPEN  */
+    PONTOVIRGULA = 277,            /* PONTOVIRGULA  */
+    IF = 278,                      /* IF  */
+    IFNOT = 279,                   /* IFNOT  */
+    WHILE = 280,                   /* WHILE  */
+    PRINT = 281                    /* PRINT  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef int YYSTYPE;
+union YYSTYPE
+{
+#line 6 "parser.y"
+
+    Node *node;
+    Block *block;
+    Expression *expr;
+    Statement *stmt;
+    Identifier *ident;
+    VariableDeclaration *var_decl;
+    std::vector<VariableDeclaration*> *varvec;
+    std::vector<Expression*> *exprvec;
+    std::string *string;
+    int token;
+
+#line 103 "parser.hpp"
+
+};
+typedef union YYSTYPE YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
 #endif

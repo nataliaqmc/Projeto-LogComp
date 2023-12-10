@@ -1,13 +1,24 @@
 %{
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "node.h"
 extern int yylex();
+void yyerror(const char *s) {}
 %}
-
+%union {
+    Node *node;
+    Block *block;
+    Expression *expr;
+    Statement *stmt;
+    Identifier *ident;
+    VariableDeclaration *var_decl;
+    std::vector<VariableDeclaration*> *varvec;
+    std::vector<Expression*> *exprvec;
+    std::string *string;
+    int token;
+}
 %token IDENTIFIER NUMBER LETTER DIGIT
 %token PLUS MINUS MULTIPLY DIVIDE
-%token GREATER LESSER GREATER_EQUAL LESSER_EQUAL EQUAL NOT_EQUAL
+%token GREATER LESSER GREATER_EQUAL LESSER_EQUAL EQUAL NOT_EQUAL ASSIGN
+%token CHAVECLOSE CHAVEOPEN PARENTESESCLOSE PARENTESESOPEN PONTOVIRGULA
 %token IF IFNOT WHILE PRINT
 
 %left PLUS MINUS
@@ -19,13 +30,13 @@ program: BLOCK '\n'
        | /* empty */
        ;
 
-BLOCK: '{' statement_list '}' ;
+BLOCK: CHAVEOPEN statement_list CHAVECLOSE ;
 
 statement_list: statement
               | statement_list statement
               ;
 
-statement: ';'
+statement: PONTOVIRGULA
          | assignment
          | print_statement
          | while_loop
@@ -33,18 +44,18 @@ statement: ';'
          | if_not_statement
          ;
 
-assignment: IDENTIFIER '=' expression ';' ;
+assignment: IDENTIFIER ASSIGN expression PONTOVIRGULA ;
 
-print_statement: PRINT '(' expression ')' ';' ;
+print_statement: PRINT PARENTESESOPEN expression PARENTESESCLOSE PONTOVIRGULA ;
 
-while_loop: WHILE '(' expression ')' BLOCK ;
+while_loop: WHILE PARENTESESOPEN expression PARENTESESCLOSE BLOCK ;
 
-if_statement: IF '(' expression ')' BLOCK ;
+if_statement: IF PARENTESESOPEN expression PARENTESESCLOSE BLOCK ;
 
-if_not_statement: IF '(' expression ')' BLOCK IFNOT BLOCK ;
+if_not_statement: IF PARENTESESOPEN expression PARENTESESCLOSE BLOCK IFNOT BLOCK ;
 
-condition: expression '>' expression
-          | expression '<' expression
+condition: expression GREATER expression
+          | expression LESSER expression
           | expression GREATER_EQUAL expression
           | expression LESSER_EQUAL expression
           | expression EQUAL expression
@@ -61,21 +72,11 @@ term: factor
     | term DIVIDE factor
     ;
 
-factor: '+' factor
-      | '-' factor
+factor: PLUS factor
+      | MINUS factor
       | NUMBER
-      | '(' expression ')'
+      | PARENTESESOPEN expression PARENTESESCLOSE
       | IDENTIFIER
       ;
 
 %%
-
-int main() {
-    yyparse();
-    return 0;
-}
-
-int yyerror(const char *s) {
-    fprintf(stderr, "Error: %s\n", s);
-    return 0;
-}
